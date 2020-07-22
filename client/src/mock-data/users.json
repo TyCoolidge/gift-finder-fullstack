@@ -1,0 +1,16 @@
+[
+  {
+    "id": "dbffe071-b5f6-4e70-8df7-2583fd274345",
+    "email": "tyler@gmail.com",
+    "userName": "TCoolidge",
+    "password": "6CB75F652A9B52798EB6CF2201057K35",
+    "createdAt": 1592337386978
+  },
+  {
+    "id": "23b85d56-8c84-4d9d-8786-b5f6eb679cea",
+    "email": "bob@gmail.com",
+    "userName": "Bobby2323",
+    "password": "7C6A180B36896A0A8C02787EEAFB0E4C",
+    "createdAt": 1592337386978
+  }
+]

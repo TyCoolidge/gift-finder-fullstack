@@ -1,0 +1,54 @@
+[
+  {
+    "id": "501f6331-3273-416c-a40b-e06d2c8440fd",
+    "createdAt": 1592855191798,
+    "createdByUserId": "dbffe071-b5f6-4e70-8df7-2583fd274345",
+    "title": "Vitamix E310 Explorian Blender",
+    "photo": "https://m.media-amazon.com/images/I/710037deVKL._AC_SS350_.jpg",
+    "url": "https://www.amazon.com/Vitamix-E310-Explorian-Professional-Grade-Container/dp/B0758JHZM3/ref=sr_1_2?dchild=1&keywords=vitamix&qid=1594237685&sr=8-2",
+    "description": "Variable Speed Control: Ten variable speeds allow you to refine every texture with culinary precision, from the smoothest purées to the heartiest soups.",
+    "gender": 1,
+    "interest": 11,
+    "age": 3,
+    "price": 34995
+  },
+  {
+    "id": "8ca3c483-0566-497f-a717-cea008833167",
+    "createdAt": 1592855191796,
+    "createdByUserId": "bobfe071-b5f6-4e70-8df7-2583fd274345",
+    "title": "USB Charger RAVPower",
+    "photo": "https://images-na.ssl-images-amazon.com/images/I/51zk9hBKXqL._AC_SL1000_.jpg",
+    "url": "https://www.amazon.com/Charger-RAVPower-Charging-Multiple-Compatible/dp/B00OQ19QYA?ref_=fsclp_pl_dp_1",
+    "description": "Up to 6 Ports USB Charger: Euipped with up to 6-Ports, RAVPower USB Charging Station supports charging multiple devices at same time.",
+    "gender": 2,
+    "interest": 3,
+    "age": 3,
+    "price": 2599
+  },
+  {
+    "id": "94857791-a2c2-4be8-8abb-471ef1d11fa9",
+    "createdAt": 1592855191798,
+    "createdByUserId": "ddd4cfc1-7606-4fda-9081-ab2942865999",
+    "title": "Exploding Kittens Card Game",
+    "photo": "https://images-na.ssl-images-amazon.com/images/I/71UUDAPpKWL._AC_SL1500_.jpg",
+    "url": "https://www.amazon.com/Exploding-Kittens-LLC-EKG-ORG1-1-Card/dp/B010TQY7A8/ref=zg_bs_toys-and-games_31?_encoding=UTF8&psc=1&refRID=ZGQMP12Q9AATTJW5D7XT",
+    "description": "Exploding kittens is the perfect card game for adults, teens and kids who are into kittens and explosions and laser beams and sometimes goats. More than 9 million copies sold, breaking records in kids games, adult games and everything in-between.",
+    "gender": 1,
+    "interest": 10,
+    "age": 2,
+    "price": 1999
+  },
+  {
+    "id": "e6f2f724-43b4-425b-a4d3-faedb5ec5efc",
+    "createdAt": 1592855191798,
+    "createdByUserId": "ddd4cfc1-7606-4fda-9081-ab2942865999",
+    "title": "Hydro Flask Wide Mouth 2.0 Water Bottle 32oz",
+    "photo": "https://m.media-amazon.com/images/I/418SEq1+amL._AC_SS350_.jpg",
+    "url": "https://www.amazon.com/Hydro-Flask-Mouth-Water-Bottle/dp/B083GB5ZQT/ref=sr_1_1_sspa?dchild=1&keywords=hydroflask&qid=1594670401&sr=8-1-spons&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTjIyMUZCWUNaUTQ0JmVuY3J5cHRlZElkPUEwNTIxNTIxUVJUSzhRTU5CTkVSJmVuY3J5cHRlZEFkSWQ9QTA2MjM4ODAzTUZBMEJFOVcxNlpCJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ&th=1&psc=1",
+    "description": "Keeps cold drinks icy cold and hot drinks piping hot for hydration any time. BPA-free water bottle is also phthalate-free and made of 18/8 food-grade stainless steel. Fits most backcountry water filters so you can stay refreshed for any adventure.",
+    "gender": 3,
+    "interest": 6,
+    "age": 8,
+    "price": 4995
+  }
+]
