@@ -5,7 +5,7 @@ const path = require("path");
 app.use("/api/v1/users", require("./api/v1/users"));
 app.use("/api/v1/gifts", require("./api/v1/gifts"));
 app.use("/api/v1/userGifts", require("./api/v1/userGifts"));
-app, use(express.static("client/build"));
+app.use(express.static("client/build"));
 app.get("*", (req, res) => {
    res.sendFile(path.resolve(__dirname, "client", " build", "index.html"));
 });
