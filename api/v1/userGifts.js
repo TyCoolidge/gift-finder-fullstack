@@ -12,8 +12,23 @@ router.get("/", (req, res) => {
    const createdByUserId = req.query.createdByUserId;
    /* https://www.npmjs.com/package/mysql#escaping-query-values */
    db.query(showUserGifts, [createdByUserId])
-      .then((dbRes) => {
-         res.json(dbRes);
+      .then((gifts) => {
+         const camelCaseGifts = gifts.map((gift) => {
+            return {
+               id: gift.id,
+               createdAt: gift.created_at,
+               createdByUserId: gift.created_by_user_id,
+               title: gift.title,
+               photo: gift.photo,
+               url: gift.url,
+               description: gift.description,
+               gender: gift.gender,
+               interest: gift.interest,
+               age: gift.age,
+               price: gift.price,
+            };
+         });
+         res.json(camelCaseGifts);
       })
       .catch((err) => {
          console.log(err);

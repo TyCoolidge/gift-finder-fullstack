@@ -3,6 +3,8 @@ module.exports = function showAllGfits() {
     SELECT
         *
     FROM 
-        gifts;
+        gifts
+    ORDER BY 
+        created_at;
     `;
 };
