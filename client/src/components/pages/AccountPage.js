@@ -22,30 +22,20 @@ class AccountPage extends React.Component {
 
       this.state = {
          userGifts: [],
-         userSinceDate: [],
+         // userSinceDate: toDisplayDate(
+         //    this.props.currentUser.createdAt,
+         //    "MMMM do, y"
+         // ),
+         // currentUser: {},
       };
    }
    componentDidMount() {
-      axios
-         .get("/api/v1/users")
-         .then((res) => {
-            const currentUser = res.data[0];
-            console.log(currentUser);
-            this.setState({
-               userSinceDate: new Date(
-                  Date.now(this.props.currentUser.createdAt),
-                  "MMM. d, y"
-               ),
-            });
-         })
-         .catch((error) => {
-            console.log(error);
-         });
       axios
          .get("/api/v1/gifts")
          .then((res) => {
             console.log(res.data);
             const gifts = res.data;
+            //change created_by_user_id to camelCase
             this.setState({
                userGifts: gifts,
             });
@@ -112,7 +102,7 @@ class AccountPage extends React.Component {
             <h2 className="mb-3" style={{ fontSize: "20px" }}>
                Member since: &nbsp;
                <div className="text-muted d-inline">
-                  {this.props.currentUser.createdAt}
+                  {/* {this.state.userSinceDate} */}
                </div>
             </h2>
             <div className="row mb-5">
@@ -135,7 +125,7 @@ class AccountPage extends React.Component {
             {this.state.userGifts
                .filter((gift) => {
                   //filter comes first "higher order"
-                  return gift.createdByUserId === this.props.currentUser.id;
+                  return gift.created_by_user_id === this.props.currentUser.id;
                })
                .map((gift) => {
                   return <UserGift gift={gift} key={gift.id} />;

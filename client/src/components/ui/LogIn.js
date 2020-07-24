@@ -11,10 +11,10 @@ class LogIn extends React.Component {
       super(props);
       this.state = {
          logInEmailError: "",
-         hasLogInEmailError: false,
-         hasLogInEmailSuccess: false,
+         hasEmailError: false,
+         hasEmailSuccess: false,
          //
-         logInPasswordError: "",
+         passwordError: "",
          hasPasswordError: false,
          hasPasswordSuccess: false,
       };
@@ -34,29 +34,29 @@ class LogIn extends React.Component {
       axios
          .post("/api/v1/users/auth", logUser)
          .then((res) => {
-            const currentUser = res.data[0];
-            console.log(currentUser);
+            console.log(res.data);
+            // Update currentUser in global state with API response
             this.props.dispatch({
                type: actions.UPDATE_CURRENT_USER,
-               payload: currentUser,
+               payload: res.data,
             });
-            // this.props.history.push("/add-gift-page");
+            this.props.history.push("/add-gift-page");
          })
          .catch((err) => {
             const { data } = err.response;
             console.log(data);
-            const { emailOrUsernameError, passwordError } = data;
-            if (emailOrUsernameError !== "") {
+            const { emailError, passwordError } = data;
+            if (emailError !== "") {
                this.setState({
                   hasEmailError: true,
                   hasEmailSuccess: false,
-                  emailOrUsernameError: emailOrUsernameError,
+                  logInEmailError: emailError,
                });
             } else {
                this.setState({
                   hasEmailError: false,
                   hasEmailSuccess: true,
-                  emailOrUsernameError: emailOrUsernameError,
+                  logInEmailError: emailError,
                });
             }
             if (passwordError !== "") {
@@ -74,7 +74,7 @@ class LogIn extends React.Component {
             }
          });
 
-      // make it where clicking on myAccout makes empty state for currentUser, if has that empty state then redirect
+      // make it where clicking on myAccount makes empty state for currentUser, if has that empty state then redirect
    }
 
    render() {
@@ -95,14 +95,14 @@ class LogIn extends React.Component {
                      type="email"
                      className={classnames({
                         "form-control": true,
-                        "is-invalid": this.state.hasLogInEmailError,
-                        "is-valid": this.state.hasLogInEmailSuccess,
+                        "is-invalid": this.state.hasEmailError,
+                        "is-valid": this.state.hasEmailSuccess,
                      })}
                      aria-describedby="emailHelp"
                      placeholder="Enter email or username"
                      id="login-email-input"
                   />
-                  {this.state.hasLogInEmailError !== "" && (
+                  {this.state.hasEmailError !== "" && (
                      <small className="form-text text-danger">
                         {this.state.logInEmailError}
                      </small>
@@ -127,7 +127,7 @@ class LogIn extends React.Component {
                   />
                   {this.state.hasPasswordError && (
                      <small className="form-text text-danger">
-                        {this.state.logInPasswordError}
+                        {this.state.passwordError}
                      </small>
                   )}
                </div>

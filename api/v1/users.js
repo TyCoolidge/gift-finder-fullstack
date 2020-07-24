@@ -4,12 +4,13 @@ const router = express.Router();
 const db = require("../../db");
 const insertUser = require("../../queries/insertUser");
 const selectUserById = require("../../queries/selectUserById");
+const selectUserByEmail = require("../../queries/selectUserByEmail");
 const { toHash } = require("../../utils/helpers");
 const getSignUpEmailError = require("../../validation/getSignUpEmailError");
 const getSignUpPasswordError = require("../../validation/getSignUpPasswordError");
 const getSignUpUsernameError = require("../../validation/getSignUpUsernameError");
 const getSignUpRepeatPasswordError = require("../../validation/getSignUpRepeatPasswordError");
-const getLogInEmailAndUsernameError = require("../../validation/getLogInEmailAndUsernameError");
+const getLogInEmailError = require("../../validation/getLogInEmailError");
 const getLogInPasswordError = require("../../validation/getLogInPasswordError");
 
 // @route   POST api/v1/users
@@ -86,14 +87,26 @@ router.post("/", async (req, res) => {
 // @access  Public
 
 router.post("/auth", async (req, res) => {
-   const { email, password, username } = req.body;
-   const emailOrUsernameError = getLogInEmailAndUsernameError(email, username);
-   const passwordError = await getLogInPasswordError(password, email, username);
+   const { email, password } = req.body;
+   const emailError = getLogInEmailError(email);
+   const passwordError = await getLogInPasswordError(password, email);
    let dbError = "";
-   if (emailOrUsernameError === "" && passwordError === "") {
+   if (emailError === "" && passwordError === "") {
+      // return the user to the client
+      db.query(selectUserByEmail, email)
+         .then((users) => {
+            const user = users[0];
+            res.status(200).json({
+               id: user.id,
+               email: user.email,
+               username: user.user_name,
+               createdAt: user.created_at,
+            });
+         })
+         .catch((err) => {});
    } else {
       res.status(400).json({
-         emailOrUsernameError: emailOrUsernameError,
+         emailError: emailError,
          passwordError: passwordError,
       });
    }
