@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+//https://medium.com/@mmajdanski/express-body-parser-and-why-may-not-need-it-335803cd048c
+app.use(express.json());
+
 app.use("/api/v1/users", require("./api/v1/users"));
 app.use("/api/v1/gifts", require("./api/v1/gifts"));
 app.use("/api/v1/userGifts", require("./api/v1/userGifts"));

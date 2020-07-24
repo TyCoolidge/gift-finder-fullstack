@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 module.exports = {
    toJson(data) {
       return JSON.stringify(data);
@@ -12,4 +14,12 @@ module.exports = {
       }
       return JSON.parse(str); // could be undefined
    },
+
+   toHash(password) {
+      const saltRounds = 12;
+      return bcrypt.hash(password, saltRounds);
+   },
+
+   EMAIL_REGEX: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+   USERNAME_REGEX: /^[a-zA-Z0-9]+$/,
 };

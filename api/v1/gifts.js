@@ -10,7 +10,6 @@ const showAllGifts = require("../../queries/showAllGifts");
 router.get("/", (req, res) => {
    db.query(showAllGifts())
       .then((dbRes) => {
-         console.log(dbRes);
          res.json(dbRes);
       })
       .catch((err) => {
