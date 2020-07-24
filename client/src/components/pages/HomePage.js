@@ -190,11 +190,11 @@ class HomePage extends React.Component {
                   >
                      <FontAwesomeIcon
                         icon={faGift}
-                        style={{ fontSize: "40px" }}
+                        style={{ fontSize: "25px" }}
                      />
                      <div
                         className="ml-1 d-inline"
-                        style={{ fontSize: "20px" }}
+                        style={{ fontSize: "25px" }}
                      >
                         Share Gift
                      </div>
@@ -209,11 +209,11 @@ class HomePage extends React.Component {
                      >
                         <FontAwesomeIcon
                            icon={faSignInAlt}
-                           style={{ fontSize: "40px" }}
+                           style={{ fontSize: "25px" }}
                         />
                         <div
                            className="ml-2 d-inline"
-                           style={{ fontSize: "20px" }}
+                           style={{ fontSize: "25px" }}
                         >
                            Log In
                         </div>
@@ -229,12 +229,12 @@ class HomePage extends React.Component {
                      >
                         <FontAwesomeIcon
                            icon={faSignOutAlt}
-                           style={{ fontSize: "40px" }}
+                           style={{ fontSize: "25px" }}
                            className=""
                         />
                         <div
                            className="ml-2 d-inline"
-                           style={{ fontSize: "20px" }}
+                           style={{ fontSize: "25px" }}
                         >
                            Log Out
                         </div>

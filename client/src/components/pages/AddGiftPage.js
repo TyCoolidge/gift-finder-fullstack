@@ -6,6 +6,8 @@ import { checkIsOver } from "../utils/helpers";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { v4 as getUuid } from "uuid";
+import axios from "axios";
+
 import users from "../../mock-data/users";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
@@ -33,9 +35,9 @@ class AddGiftPage extends React.Component {
          hasUrlError: false,
          hasUrlSuccess: false,
          //description
-         descText: "",
+         descriptionText: "",
          hasDescriptionError: false,
-         hasDescSuccess: false,
+         hasDescriptionSuccess: false,
          //gender
          isGenderSelected: false,
          setGender: "",
@@ -67,7 +69,7 @@ class AddGiftPage extends React.Component {
             titleText: this.props.editableGift.title,
             photoUrl: this.props.editableGift.photo,
             websiteUrl: this.props.editableGift.url,
-            descText: this.props.editableGift.description,
+            descriptionText: this.props.editableGift.description,
             setGender: this.props.editableGift.gender,
             setInterestSelected: this.props.editableGift.interest,
             setAgeSelected: this.props.editableGift.age,
@@ -92,8 +94,8 @@ class AddGiftPage extends React.Component {
          // titleText: this.props.editableGift.title,
       });
    }
-   setDescText(e) {
-      this.setState({ descText: e.target.value });
+   setDescriptionText(e) {
+      this.setState({ descriptionText: e.target.value });
    }
    setPhotoText(e) {
       this.setState({ photoUrl: e.target.value });
@@ -198,12 +200,12 @@ class AddGiftPage extends React.Component {
          this.setState({
             hasDescriptionError: true,
          });
-      } else if (checkIsOver(this.state.descText, 200) === true) {
+      } else if (checkIsOver(this.state.descriptionText, 200) === true) {
          this.setState({ hasDescriptionError: true });
       } else {
          this.setState({
             hasDescriptionError: false,
-            hasDescSuccess: true,
+            hasDescriptionSuccess: true,
          });
       }
    }
@@ -234,6 +236,7 @@ class AddGiftPage extends React.Component {
 
    async checkForPriceError(priceInput) {
       const priceRegex = /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/g;
+      console.log(priceInput);
       //http://regexlib.com/Search.aspx?k=currency
       if (priceInput === "") {
          this.setState({
@@ -308,7 +311,7 @@ class AddGiftPage extends React.Component {
             title: titleInput,
             photo: photoUrl,
             url: urlInput,
-            desc: descriptionInput,
+            description: descriptionInput,
             gender: Number(setGender),
             interest: Number(setInterestSelected),
             age: Number(setAgeSelected),
@@ -316,6 +319,16 @@ class AddGiftPage extends React.Component {
             // price in cents
          };
          console.log(newGift);
+         /// TODO MAKE CLEANER, USED FOR DEMO
+         axios
+            .post("/api/v1/gifts", newGift)
+            .then((res) => {
+               console.log(res.data);
+            })
+            .catch((err) => {
+               const { data } = err.response;
+               console.log(data);
+            });
          //if all inputs are filled out, lets remove editableGift from store
          //TODO when editing gift, update its state instead of making new gift
          // if editable is not empty lets update it
@@ -366,14 +379,14 @@ class AddGiftPage extends React.Component {
                         >
                            <FontAwesomeIcon
                               icon={faUserCircle}
-                              style={{ fontSize: "40px" }}
+                              style={{ fontSize: "25px" }}
                               className=""
                            />
                            <div
                               className="ml-1 d-inline"
-                              style={{ fontSize: "20px" }}
+                              style={{ fontSize: "25px" }}
                            >
-                              {this.props.currentUser.userName}
+                              {this.props.currentUser.username}
                            </div>
                         </Link>
                      </div>
@@ -475,23 +488,23 @@ class AddGiftPage extends React.Component {
                            className={classnames({
                               "form-control": true,
                               "is-invalid": this.state.hasDescriptionError,
-                              "is-valid": this.state.hasDescSuccess,
+                              "is-valid": this.state.hasDescriptionSuccess,
                            })}
                            rows="3"
                            defaultValue={this.props.editableGift.description}
-                           onChange={(e) => this.setDescText(e)}
+                           onChange={(e) => this.setDescriptionText(e)}
                            id="desc-input"
                         ></textarea>
                         <span
                            className={classnames({
                               "text-danger": checkIsOver(
-                                 this.state.descText,
+                                 this.state.descriptionText,
                                  200
                               ),
                               "float-right": true,
                            })}
                         >
-                           {this.state.descText.length}/200
+                           {this.state.descriptionText.length}/200
                         </span>
                      </div>
                   </div>
@@ -657,6 +670,7 @@ class AddGiftPage extends React.Component {
                            <option value="5">35-44</option>
                            <option value="6">45-54</option>
                            <option value="7">55+</option>
+                           <option value="8">All ages</option>
                         </select>
                      </div>
                   </div>

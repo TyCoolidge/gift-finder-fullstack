@@ -42,7 +42,7 @@ class AccountPage extends React.Component {
             console.log(error);
          });
       axios
-         .get("/api/v1/userGifts")
+         .get("/api/v1/gifts")
          .then((res) => {
             console.log(res.data);
             const gifts = res.data;
@@ -79,12 +79,12 @@ class AccountPage extends React.Component {
                   >
                      <FontAwesomeIcon
                         icon={faSignOutAlt}
-                        style={{ fontSize: "40px" }}
+                        style={{ fontSize: "25px" }}
                         className=""
                      />
                      <div
                         className="ml-1 d-inline"
-                        style={{ fontSize: "20px" }}
+                        style={{ fontSize: "25px" }}
                      >
                         Log Out
                      </div>

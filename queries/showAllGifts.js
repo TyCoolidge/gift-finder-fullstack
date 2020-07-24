@@ -5,6 +5,6 @@ module.exports = function showAllGfits() {
     FROM 
         gifts
     ORDER BY 
-        created_at;
+        created_at DESC;
     `;
 };

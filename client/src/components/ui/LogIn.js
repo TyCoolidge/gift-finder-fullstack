@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
-import { v4 as getUuid } from "uuid";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import actions from "../../store/actions";
@@ -20,90 +19,62 @@ class LogIn extends React.Component {
          hasPasswordSuccess: false,
       };
    }
-   componentDidMount() {}
-
-   async setLogInEmailState(logInEmailInput) {
-      // eslint-disable-next-line
-      const logInEmailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      const lowerCaseLogInEmailInput = logInEmailInput.toLowerCase();
-      if (logInEmailInput === "")
-         this.setState({
-            logInEmailError: "Please enter your address or username",
-            hasLogInEmailError: true,
-         });
-      else if (!logInEmailRegex.test(lowerCaseLogInEmailInput)) {
-         this.setState({
-            logInEmailError: "Please enter a valid email",
-            hasLogInEmailError: true,
-         });
-      } else {
-         this.setState({
-            logInEmailError: "",
-            hasLogInEmailError: false,
-            hasLogInEmailSuccess: true,
-         });
-      }
-   }
-
-   async setLogInPasswordState(logInPasswordInput) {
-      if (logInPasswordInput === "") {
-         this.setState({
-            logInPasswordError: "Please enter your password",
-            hasPasswordError: true,
-         });
-      }
-      // TODO: if password does not match database "password entered may be incorrect"
-      else {
-         this.setState({
-            logInPasswordError: "",
-            hasPasswordError: false,
-            hasPasswordSuccess: true,
-         });
-      }
-   }
 
    async validateLoginInputs() {
       const logInEmailInput = document.getElementById("login-email-input")
          .value;
       const logInPasswordInput = document.getElementById("login-password-input")
          .value;
-      await this.setLogInEmailState(logInEmailInput);
-      await this.setLogInPasswordState(logInPasswordInput);
-      if (
-         this.state.hasLogInEmailError === false &&
-         this.state.hasPasswordError === false
-      ) {
-         const logUser = {
-            id: getUuid(),
-            email: logInEmailInput,
-            password: logInPasswordInput,
-            createdAt: Date.now(),
-         };
-         console.log("created user object", logUser);
-         axios
-            .get("https://run.mocky.io/v3/624bafeb-1593-4c68-9f9b-5952d2111755")
-            .then((res) => {
-               const currentUser = res.data[0];
-               console.log(currentUser);
-               this.props.dispatch({
-                  type: actions.UPDATE_CURRENT_USER,
-                  payload: currentUser,
-               });
-            })
-            .catch((error) => {
-               console.log(error);
-            });
-         if (this.props.redirectToAccountPage === "back to account") {
+
+      const logUser = {
+         email: logInEmailInput,
+         password: logInPasswordInput,
+      };
+      console.log("created user object", logUser);
+      axios
+         .post("/api/v1/users/auth", logUser)
+         .then((res) => {
+            const currentUser = res.data[0];
+            console.log(currentUser);
             this.props.dispatch({
-               type: actions.REDIRECT_TO_ACCOUNT_PAGE,
-               payload: {},
+               type: actions.UPDATE_CURRENT_USER,
+               payload: currentUser,
             });
-            this.props.history.push("/account-page");
-         } else {
-            // make it where clicking on myAccout makes empty state for currentUser, if has that empty state then redirect
-            this.props.history.push("/add-gift-page");
-         }
-      }
+            // this.props.history.push("/add-gift-page");
+         })
+         .catch((err) => {
+            const { data } = err.response;
+            console.log(data);
+            const { emailOrUsernameError, passwordError } = data;
+            if (emailOrUsernameError !== "") {
+               this.setState({
+                  hasEmailError: true,
+                  hasEmailSuccess: false,
+                  emailOrUsernameError: emailOrUsernameError,
+               });
+            } else {
+               this.setState({
+                  hasEmailError: false,
+                  hasEmailSuccess: true,
+                  emailOrUsernameError: emailOrUsernameError,
+               });
+            }
+            if (passwordError !== "") {
+               this.setState({
+                  hasPasswordError: true,
+                  hasPasswordSuccess: false,
+                  passwordError: passwordError,
+               });
+            } else {
+               this.setState({
+                  hasPasswordError: false,
+                  hasPasswordSuccess: true,
+                  passwordError: passwordError,
+               });
+            }
+         });
+
+      // make it where clicking on myAccout makes empty state for currentUser, if has that empty state then redirect
    }
 
    render() {

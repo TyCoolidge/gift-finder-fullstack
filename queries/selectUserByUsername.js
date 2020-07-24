@@ -1,6 +1,6 @@
 const selectUserByUsername = `
      SELECT
-        id
+        *
      FROM 
         users
     WHERE

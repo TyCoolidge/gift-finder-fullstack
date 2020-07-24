@@ -9,6 +9,8 @@ const getSignUpEmailError = require("../../validation/getSignUpEmailError");
 const getSignUpPasswordError = require("../../validation/getSignUpPasswordError");
 const getSignUpUsernameError = require("../../validation/getSignUpUsernameError");
 const getSignUpRepeatPasswordError = require("../../validation/getSignUpRepeatPasswordError");
+const getLogInEmailAndUsernameError = require("../../validation/getLogInEmailAndUsernameError");
+const getLogInPasswordError = require("../../validation/getLogInPasswordError");
 
 // @route   POST api/v1/users
 // @desc    Create a new user
@@ -83,11 +85,18 @@ router.post("/", async (req, res) => {
 // @desc    check this user against the db via email and password
 // @access  Public
 
-router.post("/", async (req, res) => {
+router.post("/auth", async (req, res) => {
    const { email, password, username } = req.body;
-   const emailOrUsernameError = getLogInEmailOrUsernameError(email, username);
-   const passwordError = getLogInPasswordError(password, email);
+   const emailOrUsernameError = getLogInEmailAndUsernameError(email, username);
+   const passwordError = await getLogInPasswordError(password, email, username);
    let dbError = "";
+   if (emailOrUsernameError === "" && passwordError === "") {
+   } else {
+      res.status(400).json({
+         emailOrUsernameError: emailOrUsernameError,
+         passwordError: passwordError,
+      });
+   }
 });
 
 module.exports = router;
