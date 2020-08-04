@@ -319,6 +319,12 @@ class AddGiftPage extends React.Component {
             // price in cents
          };
          console.log(newGift);
+         // used for database, to see what users created what gift.
+         const userGift = {
+            id: getUuid(),
+            userId: this.props.currentUser.id,
+            giftId: newGift.id,
+         };
          /// TODO MAKE CLEANER, USED FOR DEMO
          axios
             .post("/api/v1/gifts", newGift)
@@ -329,6 +335,17 @@ class AddGiftPage extends React.Component {
                const { data } = err.response;
                console.log(data);
             });
+         //post API call for userGifts
+         axios
+            .post("/api/v1/userGifts", userGift)
+            .then((res) => {
+               console.log(res.data);
+            })
+            .catch((err) => {
+               const { data } = err.response;
+               console.log(data);
+            });
+
          //if all inputs are filled out, lets remove editableGift from store
          //TODO when editing gift, update its state instead of making new gift
          // if editable is not empty lets update it

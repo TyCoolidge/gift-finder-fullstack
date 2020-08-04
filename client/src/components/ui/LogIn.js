@@ -30,7 +30,7 @@ class LogIn extends React.Component {
          email: logInEmailInput,
          password: logInPasswordInput,
       };
-      console.log("created user object", logUser);
+      // console.log("created user object", logUser);
       axios
          .post("/api/v1/users/auth", logUser)
          .then((res) => {

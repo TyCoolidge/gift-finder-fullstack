@@ -6,15 +6,16 @@ edit button takes to to add gift page but parameters are already filled out
 saving edited gift reflects on userpage and homepage
 */
 import React from "react";
+import toDisplayDate from "date-fns/format";
 import { Link } from "react-router-dom";
 import UserGift from "../ui/UserGift";
-import toDisplayDate from "date-fns/format";
+
 import Header from "../ui/Header";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faGift } from "@fortawesome/free-solid-svg-icons";
 
 class AccountPage extends React.Component {
    constructor(props) {
@@ -22,10 +23,7 @@ class AccountPage extends React.Component {
 
       this.state = {
          userGifts: [],
-         // userSinceDate: toDisplayDate(
-         //    this.props.currentUser.createdAt,
-         //    "MMMM do, y"
-         // ),
+
          // currentUser: {},
       };
    }
@@ -60,6 +58,24 @@ class AccountPage extends React.Component {
                   <Header />
                </div>
                <div className="col text-right mt-3">
+                  <Link
+                     to="#"
+                     className="mr-4 "
+                     onClick={() => {
+                        this.checkIfUserLoggedInForShareGiftIdea();
+                     }}
+                  >
+                     <FontAwesomeIcon
+                        icon={faGift}
+                        style={{ fontSize: "25px" }}
+                     />
+                     <div
+                        className="ml-1 d-inline"
+                        style={{ fontSize: "25px" }}
+                     >
+                        Share Gift
+                     </div>
+                  </Link>
                   <Link
                      to="/login-page"
                      className=""
@@ -102,7 +118,10 @@ class AccountPage extends React.Component {
             <h2 className="mb-3" style={{ fontSize: "20px" }}>
                Member since: &nbsp;
                <div className="text-muted d-inline">
-                  {/* {this.state.userSinceDate} */}
+                  {toDisplayDate(
+                     this.props.currentUser.createdAt,
+                     "MMMM do, y"
+                  )}
                </div>
             </h2>
             <div className="row mb-5">
@@ -110,16 +129,6 @@ class AccountPage extends React.Component {
                   <h2 className="" style={{ fontSize: "20px" }}>
                      Your created gifts:
                   </h2>
-               </div>
-               <div className="col">
-                  <div className="float-right">
-                     <Link
-                        to="/add-gift-page"
-                        className="float-right btn-sm btn-primary"
-                     >
-                        Create New Gift
-                     </Link>
-                  </div>
                </div>
             </div>
             {this.state.userGifts

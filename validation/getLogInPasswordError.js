@@ -8,7 +8,7 @@ module.exports = async function getLogInPasswordError(password, email) {
       return "Please enter your password";
    }
    if ((await checkIsValidUser(email, password)) === false) {
-      return "Them email and password combination is invalid";
+      return "The email and password combination is invalid";
    }
 
    return "";
@@ -32,6 +32,6 @@ function checkIsValidUser(email, password) {
          return isValidUser;
       })
       .catch((err) => {
-         console.log(err);
+         return false;
       });
 }
